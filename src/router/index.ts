@@ -3,11 +3,10 @@ import {
   Request,
   Response
 } from 'express'
+import UrlController from '../controllers/url'
 
 const router = Router()
 
-router.get('/', (req: Request, res: Response): void => {
-  res.send({ error: 'хуй' })
-})
+router.post('/url', UrlController.create)
 
 export default router
