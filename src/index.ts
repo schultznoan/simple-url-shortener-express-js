@@ -2,13 +2,15 @@ import express from 'express'
 import router from './router'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-
+import errorMiddleware from './middlewares/error/index'
 dotenv.config()
 
 const app = express()
 
-app.use(router)
 app.use(express.json())
+
+app.use(router)
+app.use(errorMiddleware)
 
 const init = async () => {
     try {

@@ -5,13 +5,22 @@ import {
 } from 'express'
 
 export default new class UrlController {
-    async create (req: Request, res: Response) {
+    async create(req: Request, res: Response, next: any) {
         try {
             const createdUrl = await UrlService.create(req?.body || {})
 
             return res.json(createdUrl)
-        } catch ({ message }: any) {
-            res.status(500).json({ message })
+        } catch (error) {
+            next(error)
+        }
+    }
+    async get(req: Request, res: Response, next: any) {
+        try {
+            const findedUrl: string = await UrlService.get(req.params.id)
+
+            return res.redirect(findedUrl)
+        } catch (error: any) {
+            next(error)
         }
     }
 }
