@@ -1,6 +1,11 @@
 import ApiError from '../../exceptions/error/index'
+import {
+  Request,
+  Response,
+  NextFunction,
+} from 'express'
 
-export default function (error: any, _req: any, res: any, _next: any) {
+export default function (error: ApiError, _req: Request, res: Response, _next: NextFunction) {
   const { status, message, errors } = error
 
   if (error instanceof ApiError) {
@@ -12,5 +17,4 @@ export default function (error: any, _req: any, res: any, _next: any) {
   return res
     .status(500)
     .json({ message: 'Произошла ошибка сервера', errors: {} })
-
 }
